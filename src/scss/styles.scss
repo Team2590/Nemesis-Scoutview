@@ -1,0 +1,21 @@
+$primary: #dc3545;
+$secondary: #ff5555;
+$info: #850505;
+$success: #28a745;
+
+@import '../../node_modules/bootstrap/scss/functions';
+@import '../../node_modules/bootstrap/scss/variables';
+
+
+$custom-colors: (
+    "tertiary": #485058
+);
+    
+$theme-colors: map-merge($theme-colors, $custom-colors);
+    
+
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+
+* {
+    // outline: 1px lime solid !important;
+}
