@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import robotPositions from './robotPositions.png'
 import ButtonArea from './ButtonArea'
 import QRCode from 'react-qr-code'
+import '../node_modules/bootstrap/dist/js/bootstrap'
 
 export default function App() {
     const [teamNumber, setTeamNumber] = useState(localStorage.getItem("teamNumber") == null ? "" : localStorage.getItem("teamNumber")) 
@@ -41,6 +42,7 @@ export default function App() {
     const [droppedHit, setDroppedHit] = useState(localStorage.getItem("droppedHit") == null ? "" : localStorage.getItem("droppedHit"))
     const [tripleClimb, setTripleClimb] = useState(localStorage.getItem("tripleClimb") == null ? "" : localStorage.getItem("tripleClimb"))
     const [comment, setComment] = useState(localStorage.getItem("comment") == null ? "" : localStorage.getItem("comment"))
+    const [missingDataMessage, setMissingDataMessage] = useState([])
 
     useEffect(()=> {
         localStorage.setItem("teamNumber", teamNumber)
@@ -270,12 +272,54 @@ export default function App() {
         scoutName
     ]
 
+    function checkMissing() {
+        let missings = []
+        if (!teamNumber) missings.push("Team number")
+        if (!matchNumber) missings.push("Match number")
+        if (!scoutName) missings.push("Scout name")
+        if (!startingPosition) missings.push("Starting position")
+        if (!leaveCommunity) missings.push("Leave community")
+        if (!autoChargingStation) missings.push("Auto charging station")
+        if (!defenseQuantity) missings.push("Defense quantity")
+        if (!defenseQuality) missings.push("Defense quality")
+        if (!endgameChargingStation) missings.push("Endgame charging station")
+        if (!additionalRobots) missings.push("Additional robots")
+        if (!speed) missings.push("Slow or Fast")
+        if (!movedBetween) missings.push("Moved Pieces Between Nodes")
+        if (!droppedCycling) missings.push("Dropped Pieces While Cycling")
+        if (!timeToIntake) missings.push("Long Time To Intake")
+        if (!droppedHit) missings.push("Dropped When Hit")
+        if (!tripleClimb) missings.push("Triple Climb")
+        if (!comment) missings.push("Comment")
+        setMissingDataMessage(missings.length == 0 ? noMissing : missings )
+    }
+
     useEffect(()=> {
         console.log(data)
-    },[data])
+    }, [data])
 
     return (
         <>
+            {/* missing */}
+            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                    <div className="modal-header">
+                        <p className="modal-title fs-5" id="exampleModalLabel">Missing Data</p>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div className="modal-body">
+                        <ul>
+                            {missingDataMessage.filter(missing => !!missing).map(missing => {return <li key={missing}>{missing}</li>})}
+                        </ul>
+                    </div>
+                    {/* <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary text-white" data-bs-dismiss="modal">Close</button>
+                    </div> */}
+                    </div>
+                </div>
+            </div>
+
             {/* get match */}
             <section>
                 <div className="container-fluid bg-secondary py-3 text-center display-5">
@@ -511,7 +555,7 @@ export default function App() {
                 <div className="container-fluid bg-secondary py-3 text-center display-5">
                     <p>Export</p>
                 </div>
-                <div className="my-5 mx-auto text-center">
+                <div className="mt-5 mx-auto text-center">
                     <QRCode
                         title="Export QR Code"
                         value={JSON.stringify(data)}
@@ -520,6 +564,9 @@ export default function App() {
                         size={384}
                         style={{border: "20px solid white"}}
                     />
+                </div>
+                <div className='mx-auto text-center mt-3 mb-5'>
+                    <button className='btn btn-primary btn-lg' onClick={()=> checkMissing()} data-bs-toggle='modal' data-bs-target='#exampleModal'>Show missing data</button>
                 </div>
                 <div className="container text-center">
                     <p className='h2'>The following questions are OPTIONAL fields</p>
