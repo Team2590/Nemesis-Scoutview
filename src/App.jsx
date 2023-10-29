@@ -492,9 +492,9 @@ export default function App() {
                         </div>
                     </div>
                     <div className="row gy-5 my-5">
-                        <div className="col-6 col-md-12 text-center">
+                        <div className={`${verticalButtons ? "col-6" : "col-12"} text-center`}>
                             <p>Defense Quantity %</p>
-                            <div className={`${verticalButtons ? 'btn-group-vertical' : 'btn-group'}`} role="group">
+                            <div className={`${verticalButtons ? 'btn-group-vertical' : 'btn-group'} mx-auto`} role="group">
                                 <input type="radio" className="btn-check" name="defenseQuantity" id="defenseQuantity0" onClick={()=> setDefenseQuantity("0")} checked={defenseQuantity == "0"} readOnly/>
                                 <label className="btn btn-primary p-5" htmlFor="defenseQuantity0">0</label>
 
@@ -511,7 +511,7 @@ export default function App() {
                                 <label className="btn btn-primary p-5" htmlFor="defenseQuantity100">100</label>
                             </div>
                         </div>
-                        <div className="col-6 col-md-12 text-center">
+                        <div className={`${verticalButtons ? "col-6" : "col-12"} text-center`}>
                             <p>Defense Quality</p>
                             <div className={`${verticalButtons ? 'btn-group-vertical' : 'btn-group'}`} role="group">
                                 <input type="radio" className="btn-check" name="defenseQuality" id="defenseQuality0" onClick={()=> setDefenseQuality("0")} checked={defenseQuality == "0"} readOnly/>
