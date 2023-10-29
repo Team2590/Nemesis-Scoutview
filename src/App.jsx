@@ -310,22 +310,35 @@ export default function App() {
 
     return (
         <>
-            {/* missing */}
-            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            {/* missing data modal */}
+            <div className="modal fade" id="missingDataModal" tabIndex="-1" aria-labelledby="missingDataModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
-                    <div className="modal-header">
-                        <p className="modal-title fs-5" id="exampleModalLabel">Missing Data</p>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div className="modal-header">
+                            <p className="modal-title fs-5" id="missingDataModalLabel">Missing Data</p>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            <ul>
+                                {missingDataMessage.filter(missing => !!missing).map(missing => {return <li key={missing}>{missing}</li>})}
+                            </ul>
+                        </div>
                     </div>
-                    <div className="modal-body">
-                        <ul>
-                            {missingDataMessage.filter(missing => !!missing).map(missing => {return <li key={missing}>{missing}</li>})}
-                        </ul>
-                    </div>
-                    {/* <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary text-white" data-bs-dismiss="modal">Close</button>
-                    </div> */}
+                </div>
+            </div>
+
+            {/* clear inputs modal */}
+            <div className="modal fade" id="clearModal" tabIndex="-1" aria-labelledby="clearModalLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-5" id="clearModalLabel">Are you sure you want to clear?</h1>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body text-center">
+                            <button className='btn btn-success btn-lg text-white mx-5' data-bs-dismiss="modal" onClick={clear}>Yes</button>
+                            <button className='btn btn-danger btn-lg text-white mx-5' data-bs-dismiss="modal">No</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -659,7 +672,7 @@ export default function App() {
 
             {/* clear */}
             <section className='mt-5'>
-                <button className='btn btn-success container-fluid py-5' onClick={clear}><span className='display-4 text-white'>Clear</span></button>
+                <button className='btn btn-success container-fluid py-5' data-bs-toggle="modal" data-bs-target="#clearModal"><span className='display-4 text-white'>Clear</span></button>
             </section>
         </>
     )
