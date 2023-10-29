@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react'
-import robotPositions from './robotPositions.png'
+import robotPositions from '/robotPositions.png'
 import ButtonArea from './ButtonArea'
 import QRCode from 'react-qr-code'
 import '../node_modules/bootstrap/dist/js/bootstrap'
