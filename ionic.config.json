@@ -1,0 +1,7 @@
+{
+  "name": "Nemesis Scoutview",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}

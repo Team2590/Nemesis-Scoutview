@@ -2,21 +2,14 @@ $primary: #dc3545;
 $secondary: #ff5555;
 $info: #850505;
 $success: #28a745;
-$btn-padding-y-lg: 1rem;
-$btn-padding-x-lg: 1rem;
-
-@media screen and (width > 768px) {
-}
 
 @import '../../node_modules/bootstrap/scss/functions';
 @import '../../node_modules/bootstrap/scss/variables';
-
 
 $custom-colors: (
     "tertiary": #485058
 );
     
 $theme-colors: map-merge($theme-colors, $custom-colors);
-    
 
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';

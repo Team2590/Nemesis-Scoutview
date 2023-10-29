@@ -284,12 +284,12 @@ export default function App() {
         if (!defenseQuality) missings.push("Defense quality")
         if (!endgameChargingStation) missings.push("Endgame charging station")
         if (!additionalRobots) missings.push("Additional robots")
-        if (!speed) missings.push("Slow or Fast")
-        if (!movedBetween) missings.push("Moved Pieces Between Nodes")
-        if (!droppedCycling) missings.push("Dropped Pieces While Cycling")
-        if (!timeToIntake) missings.push("Long Time To Intake")
-        if (!droppedHit) missings.push("Dropped When Hit")
-        if (!tripleClimb) missings.push("Triple Climb")
+        // if (!speed) missings.push("Slow or Fast")
+        // if (!movedBetween) missings.push("Moved Pieces Between Nodes")
+        // if (!droppedCycling) missings.push("Dropped Pieces While Cycling")
+        // if (!timeToIntake) missings.push("Long Time To Intake")
+        // if (!droppedHit) missings.push("Dropped When Hit")
+        // if (!tripleClimb) missings.push("Triple Climb")
         if (!comment) missings.push("Comment")
         setMissingDataMessage(missings.length == 0 ? ["No missing data!"] : missings )
     }
@@ -298,10 +298,14 @@ export default function App() {
         console.log(data)
     }, [data])
 
+    function changeButtonOrientation() {
+        window.innerWidth < 768 ? setVerticalButtons(true) : setVerticalButtons(false)
+    }
+
     useLayoutEffect(()=> {
-        if (window.innerWidth < 768) {
-            setVerticalButtons(true)
-        }
+        changeButtonOrientation()
+        window.addEventListener('resize', changeButtonOrientation)
+        window.addEventListener('orientationchange', changeButtonOrientation)
     },[])
 
     return (
@@ -474,7 +478,7 @@ export default function App() {
                             <ButtonArea label={"Intake From Chute"} variable={intakeFromChute} setter={setIntakeFromChute}></ButtonArea>
                         </div>
                     </div>
-                    <div className="row my-5">
+                    <div className="row gy-5 my-5">
                         <div className="col-sm text-center">
                             <p>Defense Quantity %</p>
                             <div className={`${verticalButtons ? 'btn-group-vertical' : 'btn-group'}`} role="group">
@@ -525,33 +529,35 @@ export default function App() {
                 <div className="container-fluid bg-secondary py-3 text-center display-5">
                     <p>Endgame</p>
                 </div>
-                <div className='text-center'>
-                    <p className='mb-2 pt-5'>Charging Station</p>
-                    <div className={`${verticalButtons ? 'btn-group-vertical' : 'btn-group'}`} role="group">
-                        <input type="radio" className="btn-check" name="endgameChargingStation" id="endgameChargingStationdocked" onClick={()=> setEndgameChargingStation("Docked")} checked={endgameChargingStation == "Docked"} readOnly/>
-                        <label className="btn btn-primary p-5" htmlFor="endgameChargingStationdocked">Docked</label>
+                <div className="row mx-auto mt-4 mb-5 gy-4">
+                    <div className='col-6 col-lg-12 text-center'>
+                        <p className='mb-2'>Charging Station</p>
+                        <div className={`${verticalButtons ? 'btn-group-vertical' : 'btn-group'}`} role="group">
+                            <input type="radio" className="btn-check" name="endgameChargingStation" id="endgameChargingStationdocked" onClick={()=> setEndgameChargingStation("Docked")} checked={endgameChargingStation == "Docked"} readOnly/>
+                            <label className="btn btn-primary p-5" htmlFor="endgameChargingStationdocked">Docked</label>
 
-                        <input type="radio" className="btn-check" name="endgameChargingStation" id="endgameChargingStationengaged" onClick={()=> setEndgameChargingStation("Engaged")} checked={endgameChargingStation == "Engaged"} readOnly/>
-                        <label className="btn btn-primary p-5" htmlFor="endgameChargingStationengaged">Engaged</label>
+                            <input type="radio" className="btn-check" name="endgameChargingStation" id="endgameChargingStationengaged" onClick={()=> setEndgameChargingStation("Engaged")} checked={endgameChargingStation == "Engaged"} readOnly/>
+                            <label className="btn btn-primary p-5" htmlFor="endgameChargingStationengaged">Engaged</label>
 
-                        <input type="radio" className="btn-check" name="endgameChargingStation" id="endgameChargingStationparked" onClick={()=> setEndgameChargingStation("Parked")} checked={endgameChargingStation == "Parked"} readOnly/>
-                        <label className="btn btn-primary p-5" htmlFor="endgameChargingStationparked">Parked</label>
+                            <input type="radio" className="btn-check" name="endgameChargingStation" id="endgameChargingStationparked" onClick={()=> setEndgameChargingStation("Parked")} checked={endgameChargingStation == "Parked"} readOnly/>
+                            <label className="btn btn-primary p-5" htmlFor="endgameChargingStationparked">Parked</label>
 
-                        <input type="radio" className="btn-check" name="endgameChargingStation" id="endgameChargingStationnone" onClick={()=> setEndgameChargingStation("None")} checked={endgameChargingStation == "None"} readOnly/>
-                        <label className="btn btn-primary p-5" htmlFor="endgameChargingStationnone">None</label>
+                            <input type="radio" className="btn-check" name="endgameChargingStation" id="endgameChargingStationnone" onClick={()=> setEndgameChargingStation("None")} checked={endgameChargingStation == "None"} readOnly/>
+                            <label className="btn btn-primary p-5" htmlFor="endgameChargingStationnone">None</label>
+                        </div>
                     </div>
-                </div>
-                <div className='text-center mb-5'>
-                    <p className='mb-2 pt-5'>Additional Robots</p>
-                    <div className={`${verticalButtons ? 'btn-group-vertical' : 'btn-group'}`} role="group">
-                        <input type="radio" className="btn-check" name="additionalRobots" id="additionalRobots0" onClick={()=> setAdditionalRobots("0")} checked={additionalRobots == "0"} readOnly/>
-                        <label className="btn btn-primary p-5" htmlFor="additionalRobots0">0</label>
+                    <div className='col-6 col-lg-12 text-center'>
+                        <p className='mb-2'>Additional Robots</p>
+                        <div className={`${verticalButtons ? 'btn-group-vertical' : 'btn-group'}`} role="group">
+                            <input type="radio" className="btn-check" name="additionalRobots" id="additionalRobots0" onClick={()=> setAdditionalRobots("0")} checked={additionalRobots == "0"} readOnly/>
+                            <label className="btn btn-primary p-5" htmlFor="additionalRobots0">0</label>
 
-                        <input type="radio" className="btn-check" name="additionalRobots" id="additionalRobots1" onClick={()=> setAdditionalRobots("1")} checked={additionalRobots == "1"} readOnly/>
-                        <label className="btn btn-primary p-5" htmlFor="additionalRobots1">1</label>
+                            <input type="radio" className="btn-check" name="additionalRobots" id="additionalRobots1" onClick={()=> setAdditionalRobots("1")} checked={additionalRobots == "1"} readOnly/>
+                            <label className="btn btn-primary p-5" htmlFor="additionalRobots1">1</label>
 
-                        <input type="radio" className="btn-check" name="additionalRobots" id="additionalRobots2" onClick={()=> setAdditionalRobots("2")} checked={additionalRobots == "2"} readOnly/>
-                        <label className="btn btn-primary p-5" htmlFor="additionalRobots2">2</label>
+                            <input type="radio" className="btn-check" name="additionalRobots" id="additionalRobots2" onClick={()=> setAdditionalRobots("2")} checked={additionalRobots == "2"} readOnly/>
+                            <label className="btn btn-primary p-5" htmlFor="additionalRobots2">2</label>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -578,7 +584,7 @@ export default function App() {
                     <p className='h2'>The following questions are OPTIONAL fields</p>
                     <p className='h3'>However, please still fill out the comments box</p>
                     <div>
-                        <div className="row mt-5">
+                        <div className="row m-0 gy-5">
                             <div className="col-sm">
                                 <p className='mb-2'>Slow or Fast</p>
                                 <div className="btn-group" role="group">
@@ -610,7 +616,7 @@ export default function App() {
                                 </div>
                             </div>
                         </div>
-                        <div className="row mt-5">
+                        <div className="row m-0 gy-5">
                             <div className="col-sm">
                                 <p className='mb-2'>Long Time To Intake?</p>
                                 <div className="btn-group" role="group">
