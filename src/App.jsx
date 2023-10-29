@@ -492,7 +492,7 @@ export default function App() {
                         </div>
                     </div>
                     <div className="row gy-5 my-5">
-                        <div className="col-sm text-center">
+                        <div className="col-6 col-md-12 text-center">
                             <p>Defense Quantity %</p>
                             <div className={`${verticalButtons ? 'btn-group-vertical' : 'btn-group'}`} role="group">
                                 <input type="radio" className="btn-check" name="defenseQuantity" id="defenseQuantity0" onClick={()=> setDefenseQuantity("0")} checked={defenseQuantity == "0"} readOnly/>
@@ -511,7 +511,7 @@ export default function App() {
                                 <label className="btn btn-primary p-5" htmlFor="defenseQuantity100">100</label>
                             </div>
                         </div>
-                        <div className="col-sm text-center">
+                        <div className="col-6 col-md-12 text-center">
                             <p>Defense Quality</p>
                             <div className={`${verticalButtons ? 'btn-group-vertical' : 'btn-group'}`} role="group">
                                 <input type="radio" className="btn-check" name="defenseQuality" id="defenseQuality0" onClick={()=> setDefenseQuality("0")} checked={defenseQuality == "0"} readOnly/>
@@ -543,7 +543,7 @@ export default function App() {
                     <p>Endgame</p>
                 </div>
                 <div className="row mx-auto mt-4 mb-5 gy-4">
-                    <div className='col-6 col-lg-12 text-center'>
+                    <div className='col-6 col-md-12 text-center'>
                         <p className='mb-2'>Charging Station</p>
                         <div className={`${verticalButtons ? 'btn-group-vertical' : 'btn-group'}`} role="group">
                             <input type="radio" className="btn-check" name="endgameChargingStation" id="endgameChargingStationdocked" onClick={()=> setEndgameChargingStation("Docked")} checked={endgameChargingStation == "Docked"} readOnly/>
@@ -559,7 +559,7 @@ export default function App() {
                             <label className="btn btn-primary p-5" htmlFor="endgameChargingStationnone">None</label>
                         </div>
                     </div>
-                    <div className='col-6 col-lg-12 text-center'>
+                    <div className='col-6 col-md-12 text-center'>
                         <p className='mb-2'>Additional Robots</p>
                         <div className={`${verticalButtons ? 'btn-group-vertical' : 'btn-group'}`} role="group">
                             <input type="radio" className="btn-check" name="additionalRobots" id="additionalRobots0" onClick={()=> setAdditionalRobots("0")} checked={additionalRobots == "0"} readOnly/>
