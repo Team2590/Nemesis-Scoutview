@@ -1,5 +1,4 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react'
-import robotPositions from '/robotPositions.png'
 import ButtonArea from './ButtonArea'
 import QRCode from 'react-qr-code'
 import '../node_modules/bootstrap/dist/js/bootstrap'
@@ -352,7 +351,7 @@ export default function App() {
                 </div>
                 <div className="container mx-auto pt-4">
                     <div className="text-center">
-                        <img src={robotPositions} alt="Robot positions" className='img-fluid' />
+                        <img src="./robotPositions.png" alt="Robot positions" className='img-fluid' />
                     </div>
                     <div className='pt-5 row'>
                         <div className="col text-center">
