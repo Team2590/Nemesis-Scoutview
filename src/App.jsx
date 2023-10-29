@@ -591,7 +591,7 @@ export default function App() {
                     />
                 </div>
                 <div className='mx-auto text-center mt-3 mb-5'>
-                    <button className='btn btn-primary btn-lg' onClick={()=> checkMissing()} data-bs-toggle='modal' data-bs-target='#exampleModal'>Show missing data</button>
+                    <button className='btn btn-primary btn-lg' onClick={()=> checkMissing()} data-bs-toggle='modal' data-bs-target='#missingDataModal'>Show missing data</button>
                 </div>
                 <div className="container text-center">
                     <p className='h2'>The following questions are OPTIONAL fields</p>
