@@ -292,7 +292,7 @@ export default function App() {
         if (!droppedHit) missings.push("Dropped When Hit")
         if (!tripleClimb) missings.push("Triple Climb")
         if (!comment) missings.push("Comment")
-        setMissingDataMessage(missings.length == 0 ? noMissing : missings )
+        setMissingDataMessage(missings.length == 0 ? ["No missing data!"] : missings )
     }
 
     useEffect(()=> {
