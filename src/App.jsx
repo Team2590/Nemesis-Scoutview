@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import robotPositions from './robotPositions.png'
 import ButtonArea from './ButtonArea'
 import QRCode from 'react-qr-code'
@@ -43,6 +43,7 @@ export default function App() {
     const [tripleClimb, setTripleClimb] = useState(localStorage.getItem("tripleClimb") == null ? "" : localStorage.getItem("tripleClimb"))
     const [comment, setComment] = useState(localStorage.getItem("comment") == null ? "" : localStorage.getItem("comment"))
     const [missingDataMessage, setMissingDataMessage] = useState([])
+    const [verticalButtons, setVerticalButtons] = useState(false)
 
     useEffect(()=> {
         localStorage.setItem("teamNumber", teamNumber)
@@ -298,6 +299,12 @@ export default function App() {
         console.log(data)
     }, [data])
 
+    useLayoutEffect(()=> {
+        if (window.innerWidth < 768) {
+            setVerticalButtons(true)
+        }
+    },[])
+
     return (
         <>
             {/* missing */}
@@ -345,12 +352,12 @@ export default function App() {
                 </div>
                 <div className="container mx-auto pt-4">
                     <div className="text-center">
-                        <img src={robotPositions} alt="Robot positions" />
+                        <img src={robotPositions} alt="Robot positions" className='img-fluid' />
                     </div>
                     <div className='pt-5 row'>
                         <div className="col text-center">
                             <p>Starting Position</p>
-                            <div className="btn-group" role="group">
+                            <div className={`${verticalButtons ? 'btn-group-vertical' : 'btn-group'}`} role="group">
                                 <input type="radio" className="btn-check" name="startingposition" id="startingpositionA" onClick={()=> setStartingPosition("A")} checked={startingPosition == "A"} readOnly/>
                                 <label className="btn btn-primary p-5" htmlFor="startingpositionA">A</label>
 
@@ -366,7 +373,7 @@ export default function App() {
                         </div>
                         <div className="col text-center">
                             <p>Leave Community?</p>
-                            <div className="btn-group" role="group">
+                            <div className={`${verticalButtons ? 'btn-group-vertical' : 'btn-group'}`} role="group">
                                 <input type="radio" className="btn-check" name="leavecommuntiy" id="leavecommunityyes" onClick={()=> setLeaveCommunity("true")} checked={leaveCommunity == "true"} readOnly/>
                                 <label className="btn btn-primary p-5" htmlFor="leavecommunityyes">Yes</label>
 
@@ -405,7 +412,7 @@ export default function App() {
                     </div>
                     <div className='my-5 text-center'>
                         <p className='mb-2'>Charging Station</p>
-                        <div className="btn-group" role="group">
+                        <div className={`${verticalButtons ? 'btn-group-vertical' : 'btn-group'}`} role="group">
                             <input type="radio" className="btn-check" name="autochargingstation" id="autochargingstationdocked" onClick={()=> setAutoChargingStation("Docked")} checked={autoChargingStation == "Docked"} readOnly/>
                             <label className="btn btn-primary p-5" htmlFor="autochargingstationdocked">Docked</label>
 
@@ -471,7 +478,7 @@ export default function App() {
                     <div className="row my-5">
                         <div className="col-sm text-center">
                             <p>Defense Quantity %</p>
-                            <div className="btn-group" role="group">
+                            <div className={`${verticalButtons ? 'btn-group-vertical' : 'btn-group'}`} role="group">
                                 <input type="radio" className="btn-check" name="defenseQuantity" id="defenseQuantity0" onClick={()=> setDefenseQuantity("0")} checked={defenseQuantity == "0"} readOnly/>
                                 <label className="btn btn-primary p-5" htmlFor="defenseQuantity0">0</label>
 
@@ -490,7 +497,7 @@ export default function App() {
                         </div>
                         <div className="col-sm text-center">
                             <p>Defense Quality</p>
-                            <div className="btn-group" role="group">
+                            <div className={`${verticalButtons ? 'btn-group-vertical' : 'btn-group'}`} role="group">
                                 <input type="radio" className="btn-check" name="defenseQuality" id="defenseQuality0" onClick={()=> setDefenseQuality("0")} checked={defenseQuality == "0"} readOnly/>
                                 <label className="btn btn-primary p-5" htmlFor="defenseQuality0">0</label>
 
@@ -521,7 +528,7 @@ export default function App() {
                 </div>
                 <div className='text-center'>
                     <p className='mb-2 pt-5'>Charging Station</p>
-                    <div className="btn-group" role="group">
+                    <div className={`${verticalButtons ? 'btn-group-vertical' : 'btn-group'}`} role="group">
                         <input type="radio" className="btn-check" name="endgameChargingStation" id="endgameChargingStationdocked" onClick={()=> setEndgameChargingStation("Docked")} checked={endgameChargingStation == "Docked"} readOnly/>
                         <label className="btn btn-primary p-5" htmlFor="endgameChargingStationdocked">Docked</label>
 
@@ -537,7 +544,7 @@ export default function App() {
                 </div>
                 <div className='text-center mb-5'>
                     <p className='mb-2 pt-5'>Additional Robots</p>
-                    <div className="btn-group" role="group">
+                    <div className={`${verticalButtons ? 'btn-group-vertical' : 'btn-group'}`} role="group">
                         <input type="radio" className="btn-check" name="additionalRobots" id="additionalRobots0" onClick={()=> setAdditionalRobots("0")} checked={additionalRobots == "0"} readOnly/>
                         <label className="btn btn-primary p-5" htmlFor="additionalRobots0">0</label>
 
