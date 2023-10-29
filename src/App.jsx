@@ -236,7 +236,7 @@ export default function App() {
         matchNumber,
         teamNumber,
         comment,
-        !!startingPosition,
+        startingPosition,
         leaveCommunity,
         parseInt(autoConesHigh),
         parseInt(autoConesMid),
