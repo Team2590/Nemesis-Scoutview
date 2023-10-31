@@ -530,7 +530,7 @@ export default function App() {
                                 <label className="btn btn-primary p-5" htmlFor="defenseQuality4">4</label>
 
                                 <input type="radio" className="btn-check" name="defenseQuality" id="defenseQuality5" onClick={()=> setDefenseQuality("5")} checked={defenseQuality == "5"} readOnly/>
-                                <label className="btn btn-primary p-5" htmlFor="defenseQuantity5">5</label>
+                                <label className="btn btn-primary p-5" htmlFor="defenseQuality5">5</label>
                             </div>
                         </div>
                     </div>
