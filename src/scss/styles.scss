@@ -12,4 +12,8 @@ $custom-colors: (
     
 $theme-colors: map-merge($theme-colors, $custom-colors);
 
+// * {
+//     outline: 1px solid limegreen !important;
+// }
+
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';

@@ -192,7 +192,28 @@ export default function App() {
         localStorage.setItem("comment", comment)
     }, [comment])
 
+    useEffect(()=> {
+        if (!localStorage.getItem('firstLoad')) {
+            localStorage.setItem('firstLoad', '1')
+            localStorage.setItem('pastInputs', '[]')
+        }
+    }, [])
+
+    function getPastInputs() {
+        if (localStorage.getItem('pastInputs') && JSON.parse(localStorage.getItem('pastInputs')) != '') {
+            return JSON.parse(localStorage.getItem('pastInputs')).reverse()
+        } else if (JSON.parse(localStorage.getItem('pastInputs')) == '') {
+            return ['No past inputs!']
+        } else {
+            return ['No past inputs!']
+        }
+    }
+    
     function clear() {
+        const currentData = JSON.parse(localStorage.getItem('pastInputs'))
+        currentData.push(data)
+        localStorage.setItem('pastInputs', JSON.stringify(currentData))
+        console.log(getPastInputs())
         setTeamNumber("")
         setMatchNumber("")
         setScoutName("")
@@ -338,6 +359,25 @@ export default function App() {
                         <div className="modal-body text-center">
                             <button className='btn btn-success btn-lg text-white mx-5' data-bs-dismiss="modal" onClick={clear}>Yes</button>
                             <button className='btn btn-danger btn-lg text-white mx-5' data-bs-dismiss="modal">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* past inputs modal */}
+            <div className="modal fade" id="pastInputsModal" tabIndex="-1" aria-labelledby="pastInputsModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-xl">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-5" id="pastInputsModalLabel">Past Inputs</h1>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                        <div className="modal-body overflow-scroll">
+                            <ul>
+                                {getPastInputs().map(input => {
+                                    return <li key={crypto.randomUUID()}>{JSON.stringify(input)}</li>
+                                })}
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -590,8 +630,11 @@ export default function App() {
                         style={{border: "20px solid white"}}
                     />
                 </div>
-                <div className='mx-auto text-center mt-3 mb-5'>
-                    <button className='btn btn-primary btn-lg' onClick={()=> checkMissing()} data-bs-toggle='modal' data-bs-target='#missingDataModal'>Show missing data</button>
+                <div className="text-center mt-3 mb-5 mt-5">
+                    <div className='btn-group'>
+                        <button className='btn btn-primary btn-lg' onClick={()=> checkMissing()} data-bs-toggle='modal' data-bs-target='#missingDataModal'>Show missing data</button>
+                        <button className='btn btn-primary btn-lg' data-bs-toggle='modal' data-bs-target='#pastInputsModal'>Show past inputs</button>
+                    </div>
                 </div>
                 <div className="container text-center">
                     <p className='h2'>The following questions are OPTIONAL fields</p>
