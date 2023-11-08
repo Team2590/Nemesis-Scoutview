@@ -203,9 +203,9 @@ export default function App() {
         if (localStorage.getItem('pastInputs') && JSON.parse(localStorage.getItem('pastInputs')) != '') {
             return JSON.parse(localStorage.getItem('pastInputs')).reverse()
         } else if (JSON.parse(localStorage.getItem('pastInputs')) == '') {
-            return ['No past inputs!']
+            return false
         } else {
-            return ['No past inputs!']
+            return false
         }
     }
     
@@ -373,11 +373,7 @@ export default function App() {
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
                         <div className="modal-body overflow-scroll">
-                            <ul>
-                                {getPastInputs().map(input => {
-                                    return <li key={crypto.randomUUID()}>{JSON.stringify(input)}</li>
-                                })}
-                            </ul>
+                            {getPastInputs() ? <ul>{getPastInputs().map(input => {return <li key={crypto.randomUUID()}>{JSON.stringify(input)}</li>})}</ul> : <p>No past inputs!</p>}
                         </div>
                     </div>
                 </div>
