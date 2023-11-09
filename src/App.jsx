@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react'
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react'
 import ButtonArea from './ButtonArea'
 import QRCode from 'react-qr-code'
 import '../node_modules/bootstrap/dist/js/bootstrap'
@@ -43,6 +43,7 @@ export default function App() {
     const [comment, setComment] = useState(localStorage.getItem("comment") == null ? "" : localStorage.getItem("comment"))
     const [missingDataMessage, setMissingDataMessage] = useState([])
     const [verticalButtons, setVerticalButtons] = useState(false)
+    const [pastInputs, setPastInputs] = useState()
 
     useEffect(()=> {
         localStorage.setItem("teamNumber", teamNumber)
@@ -201,19 +202,23 @@ export default function App() {
 
     function getPastInputs() {
         if (localStorage.getItem('pastInputs') && JSON.parse(localStorage.getItem('pastInputs')) != '') {
-            return JSON.parse(localStorage.getItem('pastInputs')).reverse()
+            setPastInputs(JSON.parse(localStorage.getItem('pastInputs')).reverse())
         } else if (JSON.parse(localStorage.getItem('pastInputs')) == '') {
-            return false
+            setPastInputs(false)
         } else {
-            return false
+            setPastInputs(false)
         }
+    }
+
+    function clearPastInputs() {
+        localStorage.setItem('pastInputs', '[]')
+        setPastInputs(false)
     }
     
     function clear() {
         const currentData = JSON.parse(localStorage.getItem('pastInputs'))
         currentData.push(data)
         localStorage.setItem('pastInputs', JSON.stringify(currentData))
-        console.log(getPastInputs())
         setTeamNumber("")
         setMatchNumber("")
         setScoutName("")
@@ -251,7 +256,7 @@ export default function App() {
         setDroppedHit("")
         setTripleClimb("")
         setComment("")
-    } 
+    }
 
     const data = [
         matchNumber,
@@ -372,8 +377,41 @@ export default function App() {
                             <h1 className="modal-title fs-5" id="pastInputsModalLabel">Past Inputs</h1>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
-                        <div className="modal-body overflow-scroll">
-                            {getPastInputs() ? <ul>{getPastInputs().map(input => {return <li key={crypto.randomUUID()}>{JSON.stringify(input)}</li>})}</ul> : <p>No past inputs!</p>}
+                        <div className="modal-body overflow-scroll text-center">
+                            {/* {getPastInputs() ? <ul>{getPastInputs().map(input => {return <li key={crypto.randomUUID()}>{JSON.stringify(input)}</li>})}</ul> : <p>No past inputs!</p>} */}
+                            {pastInputs ? pastInputs.map(input => {
+                                return (
+                                    <div key={crypto.randomUUID()} className='mb-5'>
+                                        <p>{`Team: ${input[1]}, Match: ${input[0]}, Scout: ${input[36]}`}</p>
+                                        <QRCode
+                                        title={`Team: ${input[1]}, Match: ${input[0]}, Scout: ${input[36]}`}
+                                        value={JSON.stringify(input)}
+                                        bgColor="white"
+                                        fgcolor="black"
+                                        size={384}
+                                        style={{border: "20px solid white"}}
+                                        />
+                                        <p className='mt-2'>{JSON.stringify(input)}</p>
+                                    </div>
+                                )
+                            }) : <p>No past inputs!</p>}
+                            <button className='btn btn-primary mx-auto' data-bs-toggle="modal" data-bs-target="#clearPastInputsModal">Clear past inputs</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* clear past inputs modal */}
+            <div className="modal fade" id="clearPastInputsModal" tabIndex="-1" aria-labelledby="clearPastInputsModalLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-5" id="clearPastInputsModalLabel">Are you sure you want to clear all past inputs?</h1>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body text-center">
+                            <button className='btn btn-success btn-lg text-white mx-5' data-bs-dismiss="modal" onClick={clearPastInputs}>Yes</button>
+                            <button className='btn btn-danger btn-lg text-white mx-5' data-bs-dismiss="modal">No</button>
                         </div>
                     </div>
                 </div>
@@ -628,8 +666,8 @@ export default function App() {
                 </div>
                 <div className="text-center mt-3 mb-5 mt-5">
                     <div className='btn-group'>
-                        <button className='btn btn-primary btn-lg' onClick={()=> checkMissing()} data-bs-toggle='modal' data-bs-target='#missingDataModal'>Show missing data</button>
-                        <button className='btn btn-primary btn-lg' data-bs-toggle='modal' data-bs-target='#pastInputsModal'>Show past inputs</button>
+                        <button className='btn btn-primary btn-lg' onClick={checkMissing} data-bs-toggle='modal' data-bs-target='#missingDataModal'>Show missing data</button>
+                        <button className='btn btn-primary btn-lg' onClick={getPastInputs} data-bs-toggle='modal' data-bs-target='#pastInputsModal'>Show past inputs</button>
                     </div>
                 </div>
                 <div className="container text-center">
